@@ -1,0 +1,13 @@
+---
+ - hosts: all
+   become: yes                  #Run script as root
+   gather_facts: false
+   vars:
+   - user: newuser              #Username
+
+   tasks:
+    - name: Delete user
+      user: 
+        name: "{{ user }}"
+        state: absent
+        remove: yes             #Delete home directory

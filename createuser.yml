@@ -1,0 +1,23 @@
+---
+ - hosts: all
+   become: yes                  #Run script as root
+   gather_facts: false
+   vars:
+   - user: newuser              #Username
+   - password: Changeme2022!    #Password
+
+   tasks:
+    - name: Create new user
+      user: 
+        name: "{{ user }}"
+        password: "{{ password | password_hash('sha512') }}"  #Password must be hashed
+    
+    - name: Add user to group or groups
+      user:
+        name: "{{ user }}"
+        shell: /bin/bash
+        groups: docker,sudo     #add user to one or more groups
+        append: yes
+    
+
+

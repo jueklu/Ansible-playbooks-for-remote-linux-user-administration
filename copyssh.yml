@@ -1,0 +1,17 @@
+---
+ - hosts: all
+   become: yes                  #Run script as root
+   gather_facts: false
+
+   tasks:
+    - name: Copy ssh key             
+      authorized_key:
+       user: username          #define user
+
+       #Uncomment "state: absent" to delete ssh certivicate
+       # state: present should not be necessary
+       #state: absent
+       #state: present
+
+       #The following key is copied to the users .ssh/authorized_keys file
+       key: "ssh-rsa ... add your private ssh key in text form"
